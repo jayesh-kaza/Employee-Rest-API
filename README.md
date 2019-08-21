@@ -1,1 +1,1 @@
-## Employee Rest API using Spring Boot with Hibernate
+## Employee Rest API using Spring Boot with Standard JPA API
