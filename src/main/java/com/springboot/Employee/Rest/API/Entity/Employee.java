@@ -2,6 +2,7 @@ package com.springboot.Employee.Rest.API.Entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "Employee")
@@ -13,12 +14,15 @@ public class Employee {
     private int id;
 
     @Column(name = "first_name")
+    @NotBlank(message = " is required")
     private String firstName;
 
     @Column(name = "last_name")
+    @NotBlank(message = " is required")
     private String lastName;
 
     @Column(name = "email")
+    @NotBlank(message = " is required")
     private String email;
 
     public Employee(){}

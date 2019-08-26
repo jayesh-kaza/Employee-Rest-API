@@ -4,67 +4,67 @@ import com.springboot.Employee.Rest.API.Entity.Employee;
 import com.springboot.Employee.Rest.API.Exceptions.EmployeeNotFoundException;
 import com.springboot.Employee.Rest.API.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api")
+@Controller
+@RequestMapping("/employees")
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
 
-    //endpoint for returning all employees
-    @GetMapping("/employees")
-    public List<Employee> getEmployees()
+
+    @GetMapping("/list")
+    public String getEmployees(Model model)
     {
-        return employeeService.findAll();
+        List<Employee> employees = employeeService.findAll();
+        model.addAttribute("employees",employees);
+        return "list-employees";
     }
 
-    //endpoint for GET/employees/{employeeId}
-    @GetMapping("/employees/{employeeId}")
-    public Employee getEmployee(@PathVariable int employeeId)
+    @GetMapping("/showFormForAdd")
+    public String showAddForm(Model model)
     {
-        Employee employee =  employeeService.findById(employeeId);
-        if(employee==null)
-            throw new EmployeeNotFoundException("Employee id not found - "+employeeId);
-        return employee;
+        Employee employee =  new Employee();
+        model.addAttribute("employee",employee);
+
+        return "employee-form";
     }
 
-    //endpoint for POST/employees
-    @PostMapping("/employees")
-    public Employee addEmployee(@RequestBody Employee employee)
+    @PostMapping("/save")
+    public String saveEmployee(@Valid @ModelAttribute("employee") Employee employee, BindingResult bindingResult)
     {
-        //incase the id is passed in json, set it to '0' so that hibernates 'inserts' it
-        //else hibernate will update the table
-        employee.setId(0);
+        if(bindingResult.hasErrors())
+            return "employee-form";
 
         employeeService.save(employee);
 
-        return employee;
+        return "redirect:/employees/list";
     }
 
-    //endpoint for PUT/employees
-    @PutMapping("/employees")
-    public Employee updateEmployee(@RequestBody Employee employee)
+    @GetMapping("/showFormForUpdate")
+    public String showUpdateForm(@RequestParam("employeeId")int empId,Model model)
     {
-        employeeService.save(employee);
-        return employee;
+        Employee employee = employeeService.findById(empId);
+
+        model.addAttribute("employee",employee);
+
+        return "employee-form";
     }
 
-    //endpoint for DELETE/employees
-    @DeleteMapping("/employees/{employeeId}")
-    public String deleteEmployee(@PathVariable int employeeId)
+    @GetMapping("/delete")
+    public String deleteEmployee(@RequestParam("employeeId") int employeeId)
     {
-        Employee employee = employeeService.findById(employeeId);
-
-        if(employee==null)
-            throw new EmployeeNotFoundException("Employee id not found - "+employeeId);
 
         employeeService.deleteById(employeeId);
 
-        return "Deleted employee with id - "+employeeId;
+        return "redirect:/employees/list";
     }
 
 }
