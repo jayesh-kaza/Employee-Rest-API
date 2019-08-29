@@ -36,6 +36,7 @@ public class EmployeeController {
 
     //endpoint for POST/employees
     @PostMapping("/employees")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Employee addEmployee(@RequestBody Employee employee)
     {
         //incase the id is passed in json, set it to '0' so that hibernates 'inserts' it
@@ -49,6 +50,7 @@ public class EmployeeController {
 
     //endpoint for PUT/employees
     @PutMapping("/employees")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Employee updateEmployee(@RequestBody Employee employee)
     {
         employeeService.save(employee);
@@ -57,6 +59,7 @@ public class EmployeeController {
 
     //endpoint for DELETE/employees
     @DeleteMapping("/employees/{employeeId}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String deleteEmployee(@PathVariable int employeeId)
     {
         Employee employee = employeeService.findById(employeeId);
