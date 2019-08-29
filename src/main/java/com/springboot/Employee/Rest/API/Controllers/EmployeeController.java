@@ -17,6 +17,7 @@ public class EmployeeController {
 
     //endpoint for returning all employees
     @GetMapping("/employees")
+    @CrossOrigin(origins = "http://localhost:3000")
     public List<Employee> getEmployees()
     {
         return employeeService.findAll();
@@ -24,6 +25,7 @@ public class EmployeeController {
 
     //endpoint for GET/employees/{employeeId}
     @GetMapping("/employees/{employeeId}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Employee getEmployee(@PathVariable int employeeId)
     {
         Employee employee =  employeeService.findById(employeeId);
