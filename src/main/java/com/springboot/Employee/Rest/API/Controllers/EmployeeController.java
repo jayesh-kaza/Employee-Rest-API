@@ -42,10 +42,7 @@ public class EmployeeController {
         //incase the id is passed in json, set it to '0' so that hibernates 'inserts' it
         //else hibernate will update the table
         employee.setId(0);
-
-        employeeService.save(employee);
-
-        return employee;
+        return employeeService.save(employee);
     }
 
     //endpoint for PUT/employees
@@ -66,10 +63,7 @@ public class EmployeeController {
 
         if(employee==null)
             throw new EmployeeNotFoundException("Employee id not found - "+employeeId);
-
         employeeService.deleteById(employeeId);
-
         return "Deleted employee with id - "+employeeId;
     }
-
 }

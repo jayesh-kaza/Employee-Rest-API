@@ -28,8 +28,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public void save(Employee employee) {
+    public Employee save(Employee employee) {
         employeeDAO.save(employee);
+        return employee;
     }
 
     @Override
