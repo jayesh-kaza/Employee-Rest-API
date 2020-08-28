@@ -18,27 +18,24 @@ public class EmployeeController {
     //endpoint for returning all employees
     @GetMapping("/employees")
     @CrossOrigin(origins = "http://localhost:3000")
-    public List<Employee> getEmployees()
-    {
+    public List<Employee> getEmployees() {
         return employeeService.findAll();
     }
 
     //endpoint for GET/employees/{employeeId}
     @GetMapping("/employees/{employeeId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public Employee getEmployee(@PathVariable int employeeId)
-    {
-        Employee employee =  employeeService.findById(employeeId);
-        if(employee==null)
-            throw new EmployeeNotFoundException("Employee id not found - "+employeeId);
+    public Employee getEmployee(@PathVariable final int employeeId) {
+        final Employee employee = employeeService.findById(employeeId);
+        if (employee == null)
+            throw new EmployeeNotFoundException("Employee id not found - " + employeeId);
         return employee;
     }
 
     //endpoint for POST/employees
     @PostMapping("/employees")
     @CrossOrigin(origins = "http://localhost:3000")
-    public Employee addEmployee(@RequestBody Employee employee)
-    {
+    public Employee addEmployee(@RequestBody final Employee employee) {
         //incase the id is passed in json, set it to '0' so that hibernates 'inserts' it
         //else hibernate will update the table
         employee.setId(0);
@@ -48,8 +45,7 @@ public class EmployeeController {
     //endpoint for PUT/employees
     @PutMapping("/employees")
     @CrossOrigin(origins = "http://localhost:3000")
-    public Employee updateEmployee(@RequestBody Employee employee)
-    {
+    public Employee updateEmployee(@RequestBody final Employee employee) {
         employeeService.save(employee);
         return employee;
     }
@@ -57,13 +53,12 @@ public class EmployeeController {
     //endpoint for DELETE/employees
     @DeleteMapping("/employees/{employeeId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public String deleteEmployee(@PathVariable int employeeId)
-    {
-        Employee employee = employeeService.findById(employeeId);
+    public String deleteEmployee(@PathVariable final int employeeId) {
+        final Employee employee = employeeService.findById(employeeId);
 
-        if(employee==null)
-            throw new EmployeeNotFoundException("Employee id not found - "+employeeId);
+        if (employee == null)
+            throw new EmployeeNotFoundException("Employee id not found - " + employeeId);
         employeeService.deleteById(employeeId);
-        return "Deleted employee with id - "+employeeId;
+        return "Deleted employee with id - " + employeeId;
     }
 }

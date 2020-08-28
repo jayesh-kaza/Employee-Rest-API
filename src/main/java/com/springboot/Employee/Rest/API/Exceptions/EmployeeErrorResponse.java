@@ -8,13 +8,14 @@ public class EmployeeErrorResponse {
 
     private long timestamp;
 
-    public EmployeeErrorResponse(){}
+    public EmployeeErrorResponse() {
+    }
 
     public int getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(final int status) {
         this.status = status;
     }
 
@@ -22,7 +23,7 @@ public class EmployeeErrorResponse {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 
@@ -30,7 +31,7 @@ public class EmployeeErrorResponse {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(final long timestamp) {
         this.timestamp = timestamp;
     }
 }

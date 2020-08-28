@@ -12,12 +12,11 @@ import java.util.List;
 public class EmployeeDAOImpl implements EmployeeDAO {
 
     //same as sessionFactory
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     //setup constructor injection
     @Autowired          //automatically created by spring boot
-    public EmployeeDAOImpl(EntityManager entityManager)
-    {
+    public EmployeeDAOImpl(final EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -25,38 +24,38 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public List<Employee> findAll() {
 
         //get current hibernate session
-        Session session = entityManager.unwrap(Session.class);
+        final Session session = entityManager.unwrap(Session.class);
 
-        List<Employee> employees = session.createQuery("from Employee",Employee.class).getResultList();
+        final List<Employee> employees = session.createQuery("from Employee", Employee.class).getResultList();
 
         return employees;
     }
 
     @Override
-    public Employee findById(int id) {
-       //get session
-        Session session = entityManager.unwrap(Session.class);
+    public Employee findById(final int id) {
+        //get session
+        final Session session = entityManager.unwrap(Session.class);
 
-        Employee employee = session.get(Employee.class,id);
+        final Employee employee = session.get(Employee.class, id);
 
         return employee;
     }
 
     @Override
-    public Employee save(Employee employee) {
+    public Employee save(final Employee employee) {
 
-        Session session = entityManager.unwrap(Session.class);
+        final Session session = entityManager.unwrap(Session.class);
 
         session.saveOrUpdate(employee);
         return employee;
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(final int id) {
 
-        Session session = entityManager.unwrap(Session.class);
+        final Session session = entityManager.unwrap(Session.class);
 
-        Employee employee = session.get(Employee.class,id);
+        final Employee employee = session.get(Employee.class, id);
         session.delete(employee);
 
     }

@@ -9,25 +9,23 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class EmployeeExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<EmployeeErrorResponse> handleException(EmployeeNotFoundException exc)
-    {
-        EmployeeErrorResponse response = new EmployeeErrorResponse();
+    public ResponseEntity<EmployeeErrorResponse> handleException(final EmployeeNotFoundException exc) {
+        final EmployeeErrorResponse response = new EmployeeErrorResponse();
         response.setStatus(HttpStatus.NOT_FOUND.value());
         response.setMessage(exc.getMessage());
         response.setTimestamp(System.currentTimeMillis());
 
-        return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
-    public ResponseEntity<EmployeeErrorResponse> handleExceptions(Exception ex)
-    {
-        EmployeeErrorResponse response = new EmployeeErrorResponse();
+    public ResponseEntity<EmployeeErrorResponse> handleExceptions(final Exception ex) {
+        final EmployeeErrorResponse response = new EmployeeErrorResponse();
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         response.setMessage("Bad Request");
         response.setTimestamp(System.currentTimeMillis());
 
-        return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 }

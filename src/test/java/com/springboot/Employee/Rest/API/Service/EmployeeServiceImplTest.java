@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
@@ -27,32 +27,32 @@ public class EmployeeServiceImplTest {
     @MockBean
     EmployeeDAO employeeDAO;
 
-    private Employee mockEmployee = new Employee("Monkey D","Dragon","revolutionary@onepice.com");
+    private final Employee mockEmployee = new Employee("Monkey D", "Dragon", "revolutionary@onepice.com");
 
-    private String exampleEmployee = "{\"firstName\":\"Monkey D\",\"lastName\":\"Dragon\",\"email\":\"revolutionary@onepice.com\"}";
+    private final String exampleEmployee = "{\"firstName\":\"Monkey D\",\"lastName\":\"Dragon\",\"email\":\"revolutionary@onepice.com\"}";
 
     @Test
     public void findAll() {
-        when(employeeDAO.findAll()).thenReturn(Stream.of(new Employee("Monkey D","Luffy","priateking@onepiece.com"),
-                new Employee("Monkey D","Dragon","revolutionary@onepice.com")).collect(Collectors.toList()));
-        Assert.assertEquals(2,employeeService.findAll().size());
+        when(employeeDAO.findAll()).thenReturn(Stream.of(new Employee("Monkey D", "Luffy", "priateking@onepiece.com"),
+                new Employee("Monkey D", "Dragon", "revolutionary@onepice.com")).collect(Collectors.toList()));
+        Assert.assertEquals(2, employeeService.findAll().size());
     }
 
     @Test
     public void findById() {
         when(employeeDAO.findById(Mockito.anyInt())).thenReturn(mockEmployee);
-        assertEquals(mockEmployee,employeeService.findById(Mockito.anyInt()));
+        assertEquals(mockEmployee, employeeService.findById(Mockito.anyInt()));
     }
 
     @Test
     public void save() {
         when(employeeDAO.save(Mockito.any(Employee.class))).thenReturn(mockEmployee);
-        assertEquals(mockEmployee,employeeService.save(mockEmployee));
+        assertEquals(mockEmployee, employeeService.save(mockEmployee));
     }
 
     @Test
     public void deleteById() {
         employeeService.deleteById(Mockito.anyInt());
-        verify(employeeDAO,times(1)).deleteById(Mockito.anyInt());
+        verify(employeeDAO, times(1)).deleteById(Mockito.anyInt());
     }
 }

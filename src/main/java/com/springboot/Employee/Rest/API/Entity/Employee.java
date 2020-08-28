@@ -21,9 +21,10 @@ public class Employee {
     @Column(name = "email")
     private String email;
 
-    public Employee(){}
+    public Employee() {
+    }
 
-    public Employee(String firstName, String lastName, String email) {
+    public Employee(final String firstName, final String lastName, final String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -33,7 +34,7 @@ public class Employee {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
@@ -41,7 +42,7 @@ public class Employee {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
@@ -49,7 +50,7 @@ public class Employee {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
@@ -57,7 +58,7 @@ public class Employee {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
